@@ -1,4 +1,7 @@
 defmodule Gi.Accounts.User do
+  @moduledoc """
+  Documentation for Gi.Accounts.Use module.
+  """
   use Ecto.Schema
   import Ecto.Changeset
   @primary_key {:id, :binary_id, autogenerate: true}

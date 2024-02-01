@@ -1,4 +1,7 @@
 defmodule Gi.Accounts.UserToken do
+  @moduledoc """
+  Documentation for Gi.Accounts.UserToken module.
+  """
   use Ecto.Schema
   import Ecto.Query
   alias Gi.Accounts.UserToken

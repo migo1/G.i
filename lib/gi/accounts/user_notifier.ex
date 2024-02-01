@@ -1,4 +1,7 @@
 defmodule Gi.Accounts.UserNotifier do
+  @moduledoc """
+  Documentation for Gi.Comments.Comment module.
+  """
   import Swoosh.Email
 
   alias Gi.Mailer
