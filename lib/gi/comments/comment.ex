@@ -1,4 +1,7 @@
 defmodule Gi.Comments.Comment do
+  @moduledoc """
+  Documentation for Gi.Comments.Comment module.
+  """
   use Ecto.Schema
   import Ecto.Changeset
 

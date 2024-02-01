@@ -6,7 +6,7 @@ defmodule Gi.Accounts do
   import Ecto.Query, warn: false
   alias Gi.Repo
 
-  alias Gi.Accounts.{User, UserToken, UserNotifier}
+  alias Gi.Accounts.{User, UserNotifier, UserToken}
 
   ## Database getters
 

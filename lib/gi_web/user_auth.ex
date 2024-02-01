@@ -1,4 +1,7 @@
 defmodule GiWeb.UserAuth do
+  @moduledoc """
+  Documentation for GiWeb.UserAuth module.
+  """
   use GiWeb, :verified_routes
 
   import Plug.Conn

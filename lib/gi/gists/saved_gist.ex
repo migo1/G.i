@@ -1,4 +1,7 @@
 defmodule Gi.Gists.SavedGist do
+  @moduledoc """
+  Documentation for Gi.Gists.SavedGist module.
+  """
   use Ecto.Schema
   import Ecto.Changeset
 

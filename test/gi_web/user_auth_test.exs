@@ -1,9 +1,10 @@
 defmodule GiWeb.UserAuthTest do
   use GiWeb.ConnCase, async: true
 
-  alias Phoenix.LiveView
   alias Gi.Accounts
   alias GiWeb.UserAuth
+  alias Phoenix.LiveView
+
   import Gi.AccountsFixtures
 
   @remember_me_cookie "_gi_web_user_remember_me"

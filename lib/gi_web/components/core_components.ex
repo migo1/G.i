@@ -1,4 +1,7 @@
 defmodule GiWeb.CoreComponents do
+  alias Phoenix.LiveView.JS
+  import GiWeb.Gettext
+
   @moduledoc """
   Provides core UI components.
 
@@ -15,9 +18,6 @@ defmodule GiWeb.CoreComponents do
   Icons are provided by [heroicons](https://heroicons.com). See `icon/1` for usage.
   """
   use Phoenix.Component
-
-  alias Phoenix.LiveView.JS
-  import GiWeb.Gettext
 
   @doc """
   Renders a modal.

@@ -1,4 +1,7 @@
 defmodule Gi.Gists.Gist do
+  @moduledoc """
+  Documentation for Gi.Accounts.UserToken module.
+  """
   use Ecto.Schema
   import Ecto.Changeset
 
