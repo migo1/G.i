@@ -1,0 +1,26 @@
+name: Linters
+
+on: pull_request
+
+env:
+  FORCE_COLOR: 1
+
+jobs:
+  lint:
+    name: Check Linter Errors
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+      
+    - name: Set up Elixir
+      uses: actions/setup-elixir@v1
+      with:
+        elixir-version: '1.16.0'
+        
+    - name: Install dependencies
+      run: mix deps.get
+      
+    - name: Run Credo
+      run: mix credo --strict
