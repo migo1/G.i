@@ -17,3 +17,20 @@
     font-weight: bold;
     font-style: normal;
 }
+
+.round-image-padding {
+    border-radius: 50%;
+    border: 1.5px solid #fff;
+    padding: 4px;
+}
+
+.img-down-arrow::after {
+    content: "";
+    position: absolute;
+    right: -15px;
+    top: 45%;
+    transform: translateY(-50%);
+    border-width: 5px 5px 0 5px;
+    border-color: #fff transparent transparent transparent;
+    border-style: solid;
+}
