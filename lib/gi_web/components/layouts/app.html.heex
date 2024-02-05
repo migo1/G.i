@@ -19,5 +19,36 @@
     <button class="img-down-arrow" type="button" id="user-menu-button">
       <img src="/images/user-image.svg" alt="profile-image" class="round-image-padding w-8 h-8">
     </button>
+    <div id="dropdown_menu" class="absolute right-0 mt-2 py-2 w-48 bg-emDark rounded-lg shadow-xl border border-white" >
+      <%= if @current_user do %>
+      Sign Out
+      <% else %>
+      <.link
+       href={~p"/users/log_in"}
+       class=""
+       role="menuitem"
+       tabindex="-1"
+       method="get"
+       id="user-menu-item-0"
+       >
+        Sign In
+      </.link>
+
+      <.link
+       href={~p"/users/register"}
+       class=""
+       role="menuitem"
+       tabindex="-1"
+       method="get"
+       id="user-menu-item-1"
+       >
+        Register
+      </.link>
+      <% end %>
+    </div>
   </div>
 </header>
+<main>
+  <.flash_group flash={@flash} />
+  <%= @inner_content %>
+</main>
