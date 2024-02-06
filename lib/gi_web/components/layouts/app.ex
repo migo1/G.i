@@ -1,6 +1,8 @@
 defmodule GiWeb.Layouts.App do
   alias Phoenix.LiveView.JS
-
+  @moduledoc """
+  provide client side dropdown menu toggle
+  """
   def toggle_dropdown_menu do
     JS.toggle(
       to: "#dropdown_menu",
