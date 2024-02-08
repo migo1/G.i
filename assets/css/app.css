@@ -18,9 +18,15 @@
   font-style: normal;
 }
 
-.em-gradient{ 
-    background-image: linear-gradient(to bottom, #631A61, #551653, #340E33, #010101);
-    height: 225px;
+.em-gradient {
+  background-image: linear-gradient(
+    to bottom,
+    #631a61,
+    #551653,
+    #340e33,
+    #010101
+  );
+  height: 225px;
 }
 
 .dropdown-menu-arrow::before {
@@ -43,28 +49,39 @@
 }
 
 form input[type="text"] {
-    @apply bg-emDark-dark font-brand font-regular text-white text-xs border border-white
+  @apply bg-emDark-dark font-brand font-regular text-white text-xs border border-white;
 }
 
 form input[type="text"]:focus {
-    @apply focus:outline-none focus:border-emLavender focus:ring-0
+  @apply focus:outline-none focus:border-emLavender focus:ring-0;
 }
 
 .textarea {
-    @apply bg-emDark-dark font-brand font-regular text-white text-xs border border-white h-[300px] resize-none;
-    border-top: none;
+  @apply bg-emDark-dark font-brand font-regular text-white text-xs border border-white h-[300px] resize-none;
+  border-top: none;
+  border-left: none;
 }
 
 .textarea:focus {
-    @apply focus:outline-none focus:border-white focus:ring-0
+  @apply focus:outline-none focus:border-white focus:ring-0;
+}
+
+#line-numbers {
+  @apply border border-white font-brand font-regular text-xs text-emDark-light bg-emDark-dark h-[300px] w-[54px] text-right overflow-hidden resize-none;
+  border-right: none;
+  border-top: none;
+}
+
+#line-numbers:focus {
+  @apply focus:outline-none focus:border-white focus:ring-0;
 }
 
 .create_button {
-    @apply bg-emPurple border border-white font-brand font-regular text-black text-base
+  @apply bg-emPurple border border-white font-brand font-regular text-black text-base;
 }
 
 .create_button:hover {
-    @apply hover:bg-emPurple-dark text-emDark-light border-emDark-light
+  @apply hover:bg-emPurple-dark text-emDark-light border-emDark-light;
 }
 
 .round-image-padding {
