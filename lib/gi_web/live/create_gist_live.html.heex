@@ -17,12 +17,13 @@
           />
         </div>
       </div>
-      <div  id="gist-wrapper" class="flex w-full">
+      <div  id="gist-container" class="flex w-full" phx-update="ignore">
         <textarea id="line-numbers" class="rounded-bl-md" readonly>
           <%= "1\n" %>
         </textarea>
         <%= textarea(@form, :markup_text,
             id: "gist-textarea",
+            phx_hook: "UpdateLineNumbers",
             class: "textarea w-full rounded-br-md",
             placeholder: "Insert code...",
             spellcheck: "false",

@@ -26,8 +26,24 @@ let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("
 
 let Hooks = {};
 Hooks.UpdateLineNumbers = {
+    mounted() {
+        this.el.addEventListener("input", () => { 
+            this.updateLineNumbers();
+        })
 
-    
+        this.updateLineNumbers();
+    },
+
+    updateLineNumbers() {
+        const lineNumberText = document.querySelector("#line-numbers");
+        if (!lineNumberText) return;
+
+        const lines = this.el.value.split("\n");
+
+        const numbers = lines.map((_, i) => i + 1).join("\n") + "\n";
+
+        lineNumberText.value = numbers;
+    }
 };
 
 let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}, hooks: Hooks})
