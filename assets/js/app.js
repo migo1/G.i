@@ -27,29 +27,34 @@ let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("
 let Hooks = {};
 Hooks.UpdateLineNumbers = {
     mounted() {
+        const lineNumberText = document.querySelector("#line-numbers");
         this.el.addEventListener("input", () => { 
-            this.updateLineNumbers();
+            this.updateLineNumbers(lineNumberText);
         })
 
         this.el.addEventListener("scroll", () => {
-            const lineNumberText = document.querySelector("#line-numbers");
+            
             if (!lineNumberText) return;
 
             lineNumberText.scrollTop = this.el.scrollTop;
         })
 
-        this.updateLineNumbers();
+        this.handleEvent("clear-textarea", () => {
+            this.el.value = "";
+            lineNumberText.value = "1\n";
+        });
+
+        this.updateLineNumbers(lineNumberText);
     },
 
-    updateLineNumbers() {
-        const lineNumberText = document.querySelector("#line-numbers");
-        if (!lineNumberText) return;
+    updateLineNumbers(ln) {
+        if (!ln) return;
 
         const lines = this.el.value.split("\n");
 
         const numbers = lines.map((_, i) => i + 1).join("\n") + "\n";
 
-        lineNumberText.value = numbers;
+        ln.value = numbers;
     }
 };
 
