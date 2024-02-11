@@ -26,7 +26,6 @@ defmodule GiWeb.CreateGistLive do
     case Gists.create_gist(socket.assigns.current_user, params) do
       {:ok, _gist} ->
         socket = push_event(socket, "clear-textarea", %{})
-        {:noreply, assign(socket, :form, to_form(Gists.change_gist(%Gist{})))}
         changeset = Gists.change_gist(%Gist{})
         {:noreply, assign(socket, :form, to_form(changeset))}
 
