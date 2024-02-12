@@ -16,61 +16,77 @@
 //
 
 // Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
-import "phoenix_html"
+import "phoenix_html";
 // Establish Phoenix Socket and LiveView configuration.
-import {Socket} from "phoenix"
-import {LiveSocket} from "phoenix_live_view"
-import topbar from "../vendor/topbar"
+import { Socket } from "phoenix";
+import { LiveSocket } from "phoenix_live_view";
+import topbar from "../vendor/topbar";
 
-let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
+let csrfToken = document
+  .querySelector("meta[name='csrf-token']")
+  .getAttribute("content");
 
 let Hooks = {};
 Hooks.UpdateLineNumbers = {
-    mounted() {
-        const lineNumberText = document.querySelector("#line-numbers");
-        this.el.addEventListener("input", () => { 
-            this.updateLineNumbers(lineNumberText);
-        })
+  mounted() {
+    const lineNumberText = document.querySelector("#line-numbers");
+    this.el.addEventListener("input", () => {
+      this.updateLineNumbers(lineNumberText);
+    });
 
-        this.el.addEventListener("scroll", () => {
-            
-            if (!lineNumberText) return;
+    this.el.addEventListener("scroll", () => {
+      if (!lineNumberText) return;
 
-            lineNumberText.scrollTop = this.el.scrollTop;
-        })
+      lineNumberText.scrollTop = this.el.scrollTop;
+    });
 
-        this.handleEvent("clear-textarea", () => {
-            this.el.value = "";
-            lineNumberText.value = "1\n";
-        });
+    this.el.addEventListener("keydown", (e) => {
+      if (e.key == "Tab") {
+        e.preventDefault();
+        var start = this.el.selectionStart;
+        var end = this.el.selectionEnd;
+        this.el.value =
+          this.el.value.substring(0, start) +
+          "\t" +
+            this.el.value.substring(end);
+        this.el.selectionStart = this.el.selectionEnd = start + 1
+      }
+    });
 
-        this.updateLineNumbers(lineNumberText);
-    },
+    this.handleEvent("clear-textarea", () => {
+      this.el.value = "";
+      lineNumberText.value = "1\n";
+    });
 
-    updateLineNumbers(ln) {
-        if (!ln) return;
+    this.updateLineNumbers(lineNumberText);
+  },
 
-        const lines = this.el.value.split("\n");
+  updateLineNumbers(ln) {
+    if (!ln) return;
 
-        const numbers = lines.map((_, i) => i + 1).join("\n") + "\n";
+    const lines = this.el.value.split("\n");
 
-        ln.value = numbers;
-    }
+    const numbers = lines.map((_, i) => i + 1).join("\n") + "\n";
+
+    ln.value = numbers;
+  },
 };
 
-let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}, hooks: Hooks})
+let liveSocket = new LiveSocket("/live", Socket, {
+  params: { _csrf_token: csrfToken },
+  hooks: Hooks,
+});
 
 // Show progress bar on live navigation and form submits
-topbar.config({barColors: {0: "#29d"}, shadowColor: "rgba(0, 0, 0, .3)"})
-window.addEventListener("phx:page-loading-start", _info => topbar.show(300))
-window.addEventListener("phx:page-loading-stop", _info => topbar.hide())
+topbar.config({ barColors: { 0: "#29d" }, shadowColor: "rgba(0, 0, 0, .3)" });
+window.addEventListener("phx:page-loading-start", (_info) => topbar.show(300));
+window.addEventListener("phx:page-loading-stop", (_info) => topbar.hide());
 
 // connect if there are any LiveViews on the page
-liveSocket.connect()
+liveSocket.connect();
 
 // expose liveSocket on window for web console debug logs and latency simulation:
 // >> liveSocket.enableDebug()
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
-window.liveSocket = liveSocket
-
+window.liveSocket = liveSocket;
