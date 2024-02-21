@@ -14,6 +14,7 @@
 //
 //     import "some-package"
 //
+import hljs from "highlight.js";
 
 // Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
 import "phoenix_html";
@@ -27,6 +28,48 @@ let csrfToken = document
   .getAttribute("content");
 
 let Hooks = {};
+
+Hooks.Highlight = {
+  mounted() {
+    let fileName = this.el.getAttribute("data-name");
+
+    let codeBlock = this.el.querySelector("pre code");
+
+    if (fileName && codeBlock) {
+      codeBlock.className = codeBlock.className.replace("/language-S+/g", "");
+      codeBlock.classList.add(`language-${this.getSyntaxType(fileName)}`);
+      hljs.highlightElement(codeBlock);
+    }
+  },
+  getSyntaxType() {
+    let fileName = this.el.getAttribute("data-name");
+    let extension = fileName.split(".").pop();
+    // switch (extension) {
+    //   case "txt":
+    //     return "text";
+    //   case "json":
+    //     return "json";
+    //   case "js":
+    //     return "javascript";
+    //   case "css":
+    //     return "css";
+    //   case "html":
+    //     return "heex";
+    //   default:
+    //     return "elixir";
+    // }
+    const extensionToLanguage = {
+      "js": "javascript",
+      "html": "html",
+      "css": "css",
+      "json": "json",
+      "txt": "text",
+      "ex": "elixir",
+    };
+
+    return extensionToLanguage[extension] || "elixir";
+  },
+};
 Hooks.UpdateLineNumbers = {
   mounted() {
     const lineNumberText = document.querySelector("#line-numbers");
@@ -48,8 +91,8 @@ Hooks.UpdateLineNumbers = {
         this.el.value =
           this.el.value.substring(0, start) +
           "\t" +
-            this.el.value.substring(end);
-        this.el.selectionStart = this.el.selectionEnd = start + 1
+          this.el.value.substring(end);
+        this.el.selectionStart = this.el.selectionEnd = start + 1;
       }
     });
 
