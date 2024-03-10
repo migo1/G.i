@@ -6,14 +6,11 @@ const fs = require("fs")
 const path = require("path")
 
 module.exports = {
-  content: [
-    "./js/**/*.js",
-    "../lib/gi_web.ex",
-    "../lib/gi_web/**/*.*ex"
-  ],
+  content: ["./js/**/*.js", "../lib/gi_web.ex", "../lib/gi_web/**/*.*ex"],
   theme: {
     extend: {
       colors: {
+        emSyntax: "#0E1116",
         emDark: {
           dark: "#010101",
           DEFAULT: "#3C3B3B",
@@ -28,7 +25,7 @@ module.exports = {
           dark: "#8C52FF",
           DEFAULT: "#9D74EE",
           light: "#BC9AFF",
-        }
+        },
       },
       fontFamily: {
         brand: ["WorkSans", "sans-serif"],
@@ -46,44 +43,67 @@ module.exports = {
     //
     //     <div class="phx-click-loading:animate-ping">
     //
-    plugin(({addVariant}) => addVariant("phx-no-feedback", [".phx-no-feedback&", ".phx-no-feedback &"])),
-    plugin(({addVariant}) => addVariant("phx-click-loading", [".phx-click-loading&", ".phx-click-loading &"])),
-    plugin(({addVariant}) => addVariant("phx-submit-loading", [".phx-submit-loading&", ".phx-submit-loading &"])),
-    plugin(({addVariant}) => addVariant("phx-change-loading", [".phx-change-loading&", ".phx-change-loading &"])),
+    plugin(({ addVariant }) =>
+      addVariant("phx-no-feedback", [".phx-no-feedback&", ".phx-no-feedback &"])
+    ),
+    plugin(({ addVariant }) =>
+      addVariant("phx-click-loading", [
+        ".phx-click-loading&",
+        ".phx-click-loading &",
+      ])
+    ),
+    plugin(({ addVariant }) =>
+      addVariant("phx-submit-loading", [
+        ".phx-submit-loading&",
+        ".phx-submit-loading &",
+      ])
+    ),
+    plugin(({ addVariant }) =>
+      addVariant("phx-change-loading", [
+        ".phx-change-loading&",
+        ".phx-change-loading &",
+      ])
+    ),
 
     // Embeds Heroicons (https://heroicons.com) into your app.css bundle
     // See your `CoreComponents.icon/1` for more information.
     //
-    plugin(function({matchComponents, theme}) {
-      let iconsDir = path.join(__dirname, "./vendor/heroicons/optimized")
-      let values = {}
+    plugin(function ({ matchComponents, theme }) {
+      let iconsDir = path.join(__dirname, "./vendor/heroicons/optimized");
+      let values = {};
       let icons = [
         ["", "/24/outline"],
         ["-solid", "/24/solid"],
-        ["-mini", "/20/solid"]
-      ]
+        ["-mini", "/20/solid"],
+      ];
       icons.forEach(([suffix, dir]) => {
-        fs.readdirSync(path.join(iconsDir, dir)).forEach(file => {
-          let name = path.basename(file, ".svg") + suffix
-          values[name] = {name, fullPath: path.join(iconsDir, dir, file)}
-        })
-      })
-      matchComponents({
-        "hero": ({name, fullPath}) => {
-          let content = fs.readFileSync(fullPath).toString().replace(/\r?\n|\r/g, "")
-          return {
-            [`--hero-${name}`]: `url('data:image/svg+xml;utf8,${content}')`,
-            "-webkit-mask": `var(--hero-${name})`,
-            "mask": `var(--hero-${name})`,
-            "mask-repeat": "no-repeat",
-            "background-color": "currentColor",
-            "vertical-align": "middle",
-            "display": "inline-block",
-            "width": theme("spacing.5"),
-            "height": theme("spacing.5")
-          }
-        }
-      }, {values})
-    })
-  ]
-}
+        fs.readdirSync(path.join(iconsDir, dir)).forEach((file) => {
+          let name = path.basename(file, ".svg") + suffix;
+          values[name] = { name, fullPath: path.join(iconsDir, dir, file) };
+        });
+      });
+      matchComponents(
+        {
+          hero: ({ name, fullPath }) => {
+            let content = fs
+              .readFileSync(fullPath)
+              .toString()
+              .replace(/\r?\n|\r/g, "");
+            return {
+              [`--hero-${name}`]: `url('data:image/svg+xml;utf8,${content}')`,
+              "-webkit-mask": `var(--hero-${name})`,
+              mask: `var(--hero-${name})`,
+              "mask-repeat": "no-repeat",
+              "background-color": "currentColor",
+              "vertical-align": "middle",
+              display: "inline-block",
+              width: theme("spacing.5"),
+              height: theme("spacing.5"),
+            };
+          },
+        },
+        { values }
+      );
+    }),
+  ],
+};
